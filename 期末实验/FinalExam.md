@@ -9,6 +9,14 @@
 
 ---
 
+## 实验环境
+
+* 虚拟机windows7环境
+* 64位cmd
+* VisualStudio2019
+
+---
+
 ## 实验过程
 
 1. 确定hook函数
@@ -684,14 +692,18 @@ int main() {
 ```
 
 5. 运行inject.exe
+   * 运行前首先将对应的文件`Fengfan.txt`、`inject.exe`、`DirHookLib.dll`拷贝到C盘路径下
 
 6. 实验结果截图如下
-   * 首先测试dir本身功能，在根目录下执行dir命令，可以顺利列举出目录下的所有内容
+   * 测试dir命令本身功能
+     * 在根目录下执行dir命令，可以顺利列举出目录下的所有内容
    <img src="image/img1.png" />
    * 运行注入程序inject.exe
-   * 根据实验原理，此时由于开始对`FindFirstFileExW`和`FindNextFileW`函数进行监测，通过注入语句的方式修改执行内容，再次运行dir命令时应无法显示Fengfan.txt
+     * *文字内容为Debug测试时使用，与结果无关*
+   * 根据实验原理，此时由于dll的注入，系统再次调用`FindFirstFileExW`和`FindNextFileW`时会跳转至两个Fake函数，再次运行dir命令时应无法显示Fengfan.txt
+   * 再次测试dir命令
    <img src="image/img2.png" />
-   * 实验成功
+   * dir命令中无法查看Fengfan.txt，实验成功
 
 ---
 
@@ -700,13 +712,6 @@ int main() {
 实验中通过文档学习了解了Hook API的工作方式和实现原理，实际编写了相关程序，实现了对程序功能的修改。
 本次实验通过Hook函数实现了对程序中接口调用的检测，进而修改其执行内容，已达到对软件行为进行篡改的目的。
 在软件开发过程中，应当注意对函数、接口的封装，注意保护程序不被修改。
-
----
-
-## 实验环境
-
-* 虚拟机windows7环境
-* 64位cmd
 
 ---
 
